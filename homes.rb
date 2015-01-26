@@ -52,16 +52,16 @@ Anemone.crawl("http://www.homes.co.jp/chintai/tokyo/city/price/", opts) do |anem
 
 	anemone.on_pages_like(/http:\/\/www.homes.co.jp\/chintai\/tokyo\/[a-z]*-city\/price\//) do |page|
 		# 地名を取得
-		print page.doc.xpath("/html/body//h2/span[@class='key']/text()").to_s + ","
+		print page.doc.xpath("/html/body//h2/span[@class='key']/text()").to_s
 		# 地域別賃料と同様の方法でリスト化
 		page.doc.xpath("/html//div[@class='priceList']//tbody[@id='prg-aggregate-graph']/tr").each do |node|
 			madori  = node.xpath("./td[@class='madori']/text()").to_s
 			price = node.xpath("./td[contains(@class,'price')]/div[contains(@class,'money')]/span/text()").to_s
 			# 金額表示無しが目立ったので、priceが空欄の時にはなしと表示
 			if price != ""
-				puts ",," + madori + "," + price + "万円\n"
+				puts "," + madori + "," + price + "万円\n"
 			else
-				puts ",," + madori + "," + price + "なし\n"
+				puts "," + madori + "," + price + "なし\n"
 			end
 		end
 	end
